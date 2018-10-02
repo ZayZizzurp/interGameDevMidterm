@@ -64,5 +64,11 @@ public class PlayerController : MonoBehaviour
 	{
 		GetComponent<Rigidbody>().velocity = inputVector;
 		//now gravity doesn't work lol
+
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			GetComponent<Rigidbody>().AddForce(Vector3.up * 50f, ForceMode.Impulse);
+		}
 	}
 }
