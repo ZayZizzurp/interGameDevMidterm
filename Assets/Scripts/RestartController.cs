@@ -14,7 +14,7 @@ public class RestartController : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.R))
 		{
-			SceneManager.LoadScene("test");
+			SceneManager.LoadScene("level1");
 		}
 	}
 }
