@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
 	public float moveSpeed = 10f;
 
 	public float lookSpeed = 300f;
+	
+	float upDownRotation; 	
 
 	Vector3 inputVector;
 	
@@ -21,21 +23,34 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		//mouse look
-
-		//mouseDelta = difference, how fast the mouse is moving
-		// "0" does NOT equal position, it means the mouse isn't moving
-		float mouseX = Input.GetAxis("Mouse X") * lookSpeed * Time.deltaTime;
-		float mouseY = Input.GetAxis("Mouse Y") * lookSpeed * Time.deltaTime;
-
-		//negative mouseX = moving the mouse to the left
-		//negative mouseY = moving mouse downwards
-
-
-		//rotate capsule left and right, rotate camera up and down
-		transform.Rotate(0f, mouseX, 0f);
-		Camera.main.transform.Rotate(-mouseY, 0, 0);
-		Camera.main.transform.localEulerAngles -= new Vector3(0, 0, Camera.main.transform.localEulerAngles.z);
+		// mouseDelta = difference, how fast you're moving your mouse
+		// if it's "0" that means the mouse isn't moving
+		// this is NOT mouse position (mouse position is Input.mousePosition)
+		float mouseX = Input.GetAxis("Mouse X") * lookSpeed * Time.deltaTime; // mouseX = horizontal mouseDelta
+		float mouseY = Input.GetAxis("Mouse Y") * lookSpeed * Time.deltaTime; // mouseY = vertical mouseDelta
+		
+		// slightly better mouse-look:
+		// rotate capsule left/right, but rotate camera up/down
+		transform.Rotate(0f, mouseX, 0f); // capsule rotation
+		
+		// BETTER MOUSE LOOK, 11 Oct 2018: add mouseinput to upDownRotation AND clamp upDownRotation
+		upDownRotation -= mouseY;
+		upDownRotation = Mathf.Clamp(upDownRotation, -80, 80); // clamp vertical look rotation between -80/+80 degrees
+		
+		// apply rotation
+		Camera.main.transform.localEulerAngles = new Vector3(
+			upDownRotation,
+			0f,
+			0f
+		);
+		
+		// BETTER MOUSE LOOK, 11 Oct 2018: lock and hide the mouse cursor
+		// important: do this when the player clicks (NOT in Start)
+		if (Input.GetMouseButtonDown(0)) // 0 = left-click
+		{
+			Cursor.lockState = CursorLockMode.Locked; // lock cursor in center of screen
+			Cursor.visible = false; // hide the cursor too, just to be safe
+		}
 
 		//first person player movement
 		float vertical = Input.GetAxis("Vertical"); // W/S for Up/Down on keyboard, -1 for down, +1 for up
