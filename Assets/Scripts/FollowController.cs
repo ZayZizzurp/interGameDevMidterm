@@ -7,18 +7,20 @@ public class FollowController : MonoBehaviour
 
 	public GameObject Player;
 
-	private bool followPlayer;
+	public bool followPlayer;
 	// Use this for initialization
 	void Start ()
 	{
-		followPlayer = true;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		followPlayer = true; 
+		
 		if (followPlayer)
 		{
-		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, 0.05f);
+		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, 0.5f);
 		}
 	}
 }

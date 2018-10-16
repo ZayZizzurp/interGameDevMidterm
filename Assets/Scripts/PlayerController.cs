@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
 		//Deflection Code
 		Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-		float maxDistance = 10f;
+		float maxDistance = 5f;
 
 		RaycastHit mouserayHit = new RaycastHit();
 		
