@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 			if (Input.GetMouseButtonDown(0) && (HazardClick.CompareTag("Hazard")) )
 			{
 					Debug.Log("Clicked on Hazard");
-					HazardClick.GetComponent<Rigidbody>().AddForce(directionFromPlayer.normalized * 20, ForceMode.Impulse);
+					HazardClick.GetComponent<Rigidbody>().AddForce(directionFromPlayer.normalized * 40, ForceMode.Impulse);
 					HitSound.PlayOneShot(HitSound.clip);
 				
 			}
