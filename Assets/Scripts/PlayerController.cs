@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
 
 	public float lookSpeed = 300f;
 	
-	float upDownRotation; 	
+	float upDownRotation;
+
+	 AudioSource HitSound;
 
 	Vector3 inputVector;
 	
@@ -17,7 +19,7 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		
+		HitSound = GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -74,10 +76,11 @@ public class PlayerController : MonoBehaviour
 			GameObject HazardClick = mouserayHit.collider.gameObject;
 			Vector3 directionFromPlayer =  HazardClick.transform.position - this.transform.position;
 			
-			if (Input.GetMouseButton(0) && (HazardClick.CompareTag("Hazard")) )
+			if (Input.GetMouseButtonDown(0) && (HazardClick.CompareTag("Hazard")) )
 			{
 					Debug.Log("Clicked on Hazard");
-					HazardClick.GetComponent<Rigidbody>().AddForce(directionFromPlayer.normalized * 10, ForceMode.Impulse);
+					HazardClick.GetComponent<Rigidbody>().AddForce(directionFromPlayer.normalized * 20, ForceMode.Impulse);
+					HitSound.PlayOneShot(HitSound.clip);
 				
 			}
 		}

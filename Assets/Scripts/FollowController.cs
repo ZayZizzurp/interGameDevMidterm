@@ -7,7 +7,7 @@ public class FollowController : MonoBehaviour
 
 	public GameObject Player;
 
-	public bool followPlayer;
+	private bool followPlayer; 
 	// Use this for initialization
 	void Start ()
 	{
@@ -20,7 +20,7 @@ public class FollowController : MonoBehaviour
 		
 		if (followPlayer)
 		{
-		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, 0.5f);
+		transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, 0.03f);
 		}
 	}
 }
